@@ -86,7 +86,7 @@ const Main = () => {
               ></input>
               <br />
               <button onClick={getUserHandler} className={styles.button}>
-                Resume
+                Generate
               </button>
             </div>
           </div>
