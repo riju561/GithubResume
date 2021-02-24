@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 
+//React-bootstrap(3rd party library) is used to design this page
 const Resume = props => {
   return (
     <div>
@@ -13,18 +14,22 @@ const Resume = props => {
             <Row>
               <Col md={4} className={styles.left}>
                 <div className={styles.imgdiv}>
+                  {/* Displays the github avatar */}
                   <img
                     src={props.data["avatar_url"]}
                     alt="img"
                     className={styles.img}
                   ></img>
+                  {/* Displays the name */}
                   <p className={styles.head}>{props.data["name"]}</p>
                 </div>
                 <div className={styles.info}>
                   <p>
+                    {/* Displays the github id */}
                     <b>Github ID : </b>
                     <a href={props.data["html_url"]}>{props.data["login"]}</a>
                   </p>
+                  {/* If location data exists in api gives the location */}
                   {props.data["location"] === null ? null : (
                     <p>
                       <b>Location : </b>
@@ -32,11 +37,13 @@ const Resume = props => {
                     </p>
                   )}
                   <p>
+                    {/* Displays the date joined on github */}
                     <b>On Github since </b>
                     {new Date(props.data["created_at"]).toLocaleDateString(
                       "en-GB"
                     )}
                   </p>
+                  {/* If bio exists in api gives the bio */}
                   {props.data["bio"] === null ? null : (
                     <p>
                       <b>Bio : </b>
@@ -44,27 +51,32 @@ const Resume = props => {
                     </p>
                   )}
                   <div className={styles.info}>
+                    {/* If company data exists in api gives the company/organizations */}
                     {props.data["company"] === null ? null : (
                       <p>
                         <b>Organizations : </b>
                         {props.data["company"]}
                       </p>
                     )}
+                    {/* If email exists in api gives the email */}
                     {props.data["email"] === null ? null : (
                       <p>
                         <b>Email : </b>
                         {props.data["email"]}
                       </p>
                     )}
+                    {/* Displays number of repos */}
                     <p>
                       <b>Number of repositories : </b>
                       {props.data["public_repos"]}
                     </p>
+                    {/* Displays number of followers */}
                     <p>
                       <b>Followers : </b>
                       {props.data["followers"]}
                     </p>
                   </div>
+                  {/* Displays languages used */}
                   {props.lang == null ? null : (
                     <div>
                       <p>
@@ -80,6 +92,7 @@ const Resume = props => {
               <Col md={8} className={styles.right}>
                 {props.repo === null ? null : (
                   <div>
+                    {/* Displays popular repos */}
                     <Container>
                       <p className={styles.head}>Popular repositories : </p>
                       <hr />
@@ -107,6 +120,7 @@ const Resume = props => {
                 )}
                 {props.contri === null ? null : (
                   <div>
+                    {/* Displays Contributions */}
                     <Container>
                       <p className={styles.head}>Top Contributions : </p>
                       <hr />

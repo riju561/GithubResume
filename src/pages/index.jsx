@@ -10,13 +10,19 @@ const Main = () => {
   const [repo, setRepo] = useState(null)
   const [contri, setContri] = useState(null)
   const [lang, setLang] = useState(null)
+
+  // Sets starting state as true so it shows the first page
   useEffect(() => {
     setState(true)
   }, [])
+
+  //Sets the data received from the github api
   const printdata = data => {
     setData(data)
     setState(false)
   }
+
+  //Sets the Repos, Contributions, and the languages used
   const printrepo = repo => {
     let rl = [],
       cl = [],
@@ -36,6 +42,8 @@ const Main = () => {
     let lang = [...new Set(ll)]
     setLang(lang)
   }
+
+  //Function for handling button click 
   const getUserHandler = e => {
     e.preventDefault()
     setData(null)
@@ -47,12 +55,20 @@ const Main = () => {
     api(user, printdata)
     repos(user, printrepo)
   }
+
+  //Function to print the page
   const print = () => {
     window.print()
   }
+
+
   return (
     <div>
+      {/* Checks if the state is true
+      If true then shows the first page 
+      else shows the other page  */}
       {state ? (
+        // First page
         <div className={styles.c}>
           <div className={styles.a}>
             <p>
@@ -76,8 +92,10 @@ const Main = () => {
           </div>
         </div>
       ) : (
+        // Second page
         <div>
           <div className={styles.d}>
+            {/* Passes the information received from the api to the resume component */}
             <Resume data={data} repo={repo} contri={contri} lang={lang} />
           </div>
           <div>
