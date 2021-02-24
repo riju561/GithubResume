@@ -3,7 +3,7 @@
 Makes a resume based on information on github api.<br/>
 Give your github username to generate your resume.<br/>
 To run this project run `gatsby develop`. This will open the project on port 8000.<br/>
-
+The project is hosted on github pages. Check the site - [GithubResume](https://riju561.github.io/GithubResume/)
 
 
 
