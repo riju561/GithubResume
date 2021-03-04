@@ -15,7 +15,7 @@ body{
     box-shadow: 0 0 30px rgba(0,0,0,0.50);
 }
 .a{
-    padding: 10vh 10vw;
+    padding: 5vh 10vw;
     height: 70vh;
 }
 .a>p{
@@ -32,7 +32,7 @@ body{
     padding-left: 15px;
 }
 .button{
-    margin-top: 50px;
+    margin-top: 10px;
     border: none;
     padding:5px 35px;
     font-size:1.5rem;
@@ -67,12 +67,19 @@ body{
     width: 50%;
 }
 @media print{
+    @page {
+        size: 'A4';
+        margin: 0;
+    }
     .c{
         display: none;
     }
     .d{
         display: block;
-        margin: 0;
+        margin:0;
+        word-wrap: break-word;
+        height: 100%;
+        width: 100%;
     }
     .f{
         display: none;

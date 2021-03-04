@@ -1,8 +1,9 @@
-import React, { useState,useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { api, repos } from "../Api/api"
 import Resume from "../Component/resume"
 import styles from "./index.module.css"
 import "bootstrap/dist/css/bootstrap.min.css"
+import Alert from "react-bootstrap/Alert"
 
 const Main = () => {
   const [state, setState] = useState(true)
@@ -10,6 +11,11 @@ const Main = () => {
   const [repo, setRepo] = useState(null)
   const [contri, setContri] = useState(null)
   const [lang, setLang] = useState(null)
+  const [error, setError] = useState(false)
+  const [show, setShow] = useState(true)
+
+  //A reference to the input element
+  const textInput = useRef(null)
 
   // Sets starting state as true so it shows the first page
   useEffect(() => {
@@ -18,8 +24,15 @@ const Main = () => {
 
   //Sets the data received from the github api
   const printdata = data => {
-    setData(data)
-    setState(false)
+    if (data["message"] === "Not Found") {
+      setError(true)
+      setState(true)
+      textInput.current.value = ""
+    } else {
+      console.log(data)
+      setData(data)
+      setState(false)
+    }
   }
 
   //Sets the Repos, Contributions, and the languages used
@@ -43,15 +56,18 @@ const Main = () => {
     setLang(lang)
   }
 
-  //Function for handling button click 
+  //Function for handling button click
   const getUserHandler = e => {
     e.preventDefault()
     setData(null)
     setRepo(null)
     setContri(null)
     setLang(null)
-    setState(null)
-    const user = document.getElementById("input").value
+    setError(false)
+    setShow(true)
+    //const user = document.getElementById("input").value
+    const user = textInput.current.value
+    console.log(user)
     api(user, printdata)
     repos(user, printrepo)
   }
@@ -60,7 +76,6 @@ const Main = () => {
   const print = () => {
     window.print()
   }
-
 
   return (
     <div>
@@ -83,8 +98,23 @@ const Main = () => {
                 placeholder="Username"
                 id="input"
                 className={styles.input}
+                ref={textInput}
               ></input>
               <br />
+              {/* Shows if username is wrong */}
+              {error && show ? (
+                <Alert
+                  variant="danger"
+                  onClose={() => setShow(false)}
+                  dismissible
+                >
+                  <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                  <p>
+                    Looks like the username you had given was not found! Please
+                    try again!
+                  </p>
+                </Alert>
+              ) : null}
               <button onClick={getUserHandler} className={styles.button}>
                 Generate
               </button>
@@ -107,7 +137,10 @@ const Main = () => {
                   </button>
                 </div>
                 <div className={styles.g}>
-                  <button className={styles.button} onClick={()=>setState(true)}>
+                  <button
+                    className={styles.button}
+                    onClick={() => setState(true)}
+                  >
                     Home
                   </button>
                 </div>

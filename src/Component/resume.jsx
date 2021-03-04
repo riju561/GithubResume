@@ -77,7 +77,7 @@ const Resume = props => {
                     </p>
                   </div>
                   {/* Displays languages used */}
-                  {props.lang == null ? null : (
+                  {props.lang == null || props.lang.length === 0 ? null : (
                     <div>
                       <p>
                         <b>Languages and Technologies used : </b>
@@ -90,7 +90,11 @@ const Resume = props => {
                 </div>
               </Col>
               <Col md={8} className={styles.right}>
-                {props.repo === null ? null : (
+                {props.repo === null || props.repo.length === 0 ? (
+                  <p className={styles.null}>
+                    The user is either new or inactive for a long time
+                  </p>
+                ) : (
                   <div>
                     {/* Displays popular repos */}
                     <Container>
@@ -118,8 +122,9 @@ const Resume = props => {
                     </Container>
                   </div>
                 )}
-                {props.contri === null ? null : (
+                {props.contri === null || props.contri.length === 0 ? null : (
                   <div>
+                    {console.log(props.contri)}
                     {/* Displays Contributions */}
                     <Container>
                       <p className={styles.head}>Top Contributions : </p>
@@ -130,8 +135,8 @@ const Resume = props => {
                             <Col md={3}>
                               <p className={styles.topic}>{i[0]}</p>
                             </Col>
-                            <Col md={9}>
-                              <p className={styles.content}>
+                            <Col md={9} className={styles.content}>
+                              <p>
                                 Visit the project at <a href={i[1]}>{i[1]}</a>
                               </p>
                             </Col>
